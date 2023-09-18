@@ -1,0 +1,14 @@
+version: "3.9"
+# Mongodb service
+mongo:
+  image: mongo
+  restart: always
+  volumes: -mongo_db:/data/db
+
+  # node js api service
+  api:
+    build: .
+    ports:
+      - 4000:3000
+    environment: PORT=3000
+      MONGODB_URI=mongodb://mongo:27017

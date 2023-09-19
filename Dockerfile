@@ -1,10 +1,16 @@
 FROM node:alpine 
 
+
 ENV MONGO_DB_USERNAME=admin \
-    MONGO_DB_PASSWORD=password
-    
-RUN mkdir -p /home/app
+    MONGO_DB_PWD=password
 
-COPY . /home/app
 
-CMD ["npm","start"]
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN npm ci
+
+
+COPY . .
+
+CMD ["node","app.js"]
